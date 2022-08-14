@@ -4,16 +4,19 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import CategoryGridTitle from "../components/CategoryGridTitle";
 import { CATEGORIES } from "../data/dummy-data";
 import { RootStackParamList } from "../types/RootStackParamList";
+import Category from "../models/category";
 
 type CategoriesScreenProps = NativeStackScreenProps<RootStackParamList, "MealsCategories">;
 
 const CategoriesScreen: FC<CategoriesScreenProps> = (props) => {
-  const renderCategoryItem = (itemData: any) => {
+  // Note: Render Items
+  const renderCategoryItem = ({ item }: { item: Category }) => {
     const pressHandler = () => {
-      props.navigation.navigate("MealsOverView");
+      props.navigation.navigate("MealsOverView", { categoryId: item.id });
     };
-    return <CategoryGridTitle onPress={pressHandler} title={itemData.item.title} color={itemData.item.color} />;
+    return <CategoryGridTitle onPress={pressHandler} title={item.title} color={item.color} />;
   };
+
   return <FlatList data={CATEGORIES} keyExtractor={(item) => item.id} renderItem={renderCategoryItem} numColumns={2} />;
 };
 export default CategoriesScreen;

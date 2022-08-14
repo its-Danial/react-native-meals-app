@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import { FC } from "react";
 import { View, Text, Pressable } from "react-native";
 import tw from "twrnc";
@@ -15,7 +16,7 @@ const CategoryGridTitle: FC<CategoryGridTitleProps> = (props) => {
     >
       <Pressable
         onPress={props.onPress}
-        style={({ pressed }) => [tw`flex-1 rounded-lg bg-[${props.color}]`, pressed ? tw`opacity-25` : null]}
+        style={({ pressed }) => [tw`flex-1 rounded-lg bg-[${props.color}]`, pressed ? tw`opacity-50` : null]}
       >
         <View style={tw`flex-1 justify-center items-center`}>
           <Text style={tw`font-bold text-lg`}>{props.title}</Text>
