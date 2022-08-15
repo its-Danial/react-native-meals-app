@@ -2,30 +2,21 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { FC, useState } from "react";
 import tw from "twrnc";
 import { Pressable } from "react-native";
+import { useAppSelector } from "../hooks/useRedux";
 
 type IconButtonProps = {
   onPress: () => void;
+  color: string;
+  icon: any;
 };
 
 const IconButton: FC<IconButtonProps> = (props) => {
-  const [iconColor, setIconColor] = useState("white");
-
-  const onPressHandler = () => {
-    props.onPress();
-    setIconColor((prevSate) => {
-      if (prevSate === "white") {
-        return "red";
-      } else {
-        return "white";
-      }
-    });
-  };
   return (
     <Pressable
-      onPress={onPressHandler}
+      onPress={props.onPress}
       style={({ pressed }) => [tw` rounded-lg overflow-hidden`, pressed ? tw`opacity-50` : null]}
     >
-      <Ionicons name="heart" size={24} color={iconColor} />
+      <Ionicons name={props.icon} size={24} color={props.color} />
     </Pressable>
   );
 };

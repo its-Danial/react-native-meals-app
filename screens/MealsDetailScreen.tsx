@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { FC, useLayoutEffect } from "react";
+import { FC, useLayoutEffect, useState } from "react";
 import tw from "twrnc";
 import { Image, ScrollView, Text, View } from "react-native";
 import DetailsList from "../components/DetailsList";
@@ -8,19 +8,38 @@ import IconButton from "../components/IconButton";
 import MealsDetailsText from "../components/MealsDetailsText";
 import { MEALS } from "../data/dummy-data";
 import { RootStackParamList } from "../types/RootStackParamList";
+import { useAppDispatch, useAppSelector } from "../hooks/useRedux";
+import { addFavorite, removeFavorite } from "../store/favorites-slice";
 
 type MealsDetailScreenProps = NativeStackScreenProps<RootStackParamList, "MealsDetails">;
 
 const MealsDetailScreen: FC<MealsDetailScreenProps> = (props) => {
-  const selectedMeal = MEALS.find((meal) => meal.id === props.route.params.mealId);
+  const favoriteMealIds = useAppSelector((state) => state.favoriteMeals);
+  const dispatch = useAppDispatch();
 
-  const headerButtonPressHandler = () => {
-    console.log("hello");
+  const mealId = props.route.params.mealId;
+  const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+
+  const mealIsFavorite = favoriteMealIds.includes(mealId);
+  const toggleFavoritesPressHandler = () => {
+    if (mealIsFavorite) {
+      dispatch(removeFavorite(mealId));
+    } else {
+      dispatch(addFavorite(mealId));
+    }
   };
 
   useLayoutEffect(() => {
-    props.navigation.setOptions({ headerRight: () => <IconButton onPress={headerButtonPressHandler} /> });
-  }, []);
+    props.navigation.setOptions({
+      headerRight: () => (
+        <IconButton
+          onPress={toggleFavoritesPressHandler}
+          icon={mealIsFavorite ? "heart" : "heart-outline"}
+          color={mealIsFavorite ? "red" : "white"}
+        />
+      ),
+    });
+  }, [props.navigation, toggleFavoritesPressHandler]);
 
   return (
     <ScrollView style={tw`mb-14`}>

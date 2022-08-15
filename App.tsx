@@ -9,6 +9,8 @@ import tw from "twrnc";
 import MealsDetailScreen from "./screens/MealsDetailScreen";
 import FavoritesScreen from "./screens/FavoritesScreen";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { Provider } from "react-redux";
+import store from "./store/store";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Drawer = createDrawerNavigator();
@@ -50,26 +52,28 @@ export default function App() {
   return (
     <>
       <StatusBar style="light" />
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="Drawer"
-          screenOptions={{
-            headerStyle: { backgroundColor: tw.color("slate-900") },
-            headerTintColor: tw.color("slate-200"),
-            contentStyle: { backgroundColor: tw.color("slate-900") },
-          }}
-        >
-          <Stack.Screen
-            name="Drawer"
-            component={DrawerNavigator}
-            options={{
-              headerShown: false,
+      <Provider store={store}>
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName="Drawer"
+            screenOptions={{
+              headerStyle: { backgroundColor: tw.color("slate-900") },
+              headerTintColor: tw.color("slate-200"),
+              contentStyle: { backgroundColor: tw.color("slate-900") },
             }}
-          />
-          <Stack.Screen name="MealsOverView" component={MealsOverViewScreen} />
-          <Stack.Screen name="MealsDetails" component={MealsDetailScreen} options={{ title: "About the Meal" }} />
-        </Stack.Navigator>
-      </NavigationContainer>
+          >
+            <Stack.Screen
+              name="Drawer"
+              component={DrawerNavigator}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen name="MealsOverView" component={MealsOverViewScreen} />
+            <Stack.Screen name="MealsDetails" component={MealsDetailScreen} options={{ title: "About the Meal" }} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
     </>
   );
 }

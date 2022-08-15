@@ -1,14 +1,21 @@
 import { FC } from "react";
-import { View, Text, Pressable, Image } from "react-native";
+import { Image, Pressable, Text, View } from "react-native";
 import tw from "twrnc";
-import Meal from "../models/meal";
 import MealsDetailsText from "./MealsDetailsText";
 
-type MealItemProps = { meal: Meal; onPress: (mealId: string) => void };
+type MealItemProps = {
+  id: string;
+  title: string;
+  imageUrl: string;
+  duration: string;
+  complexity: string;
+  affordability: string;
+  onPress: (mealId: string) => void;
+};
 
-const MealItem: FC<MealItemProps> = ({ meal, onPress }) => {
+const MealItem: FC<MealItemProps> = ({ id, title, imageUrl, duration, complexity, affordability, onPress }) => {
   const mealPressHandler = () => {
-    onPress(meal.id);
+    onPress(id);
   };
 
   return (
@@ -20,9 +27,9 @@ const MealItem: FC<MealItemProps> = ({ meal, onPress }) => {
         style={({ pressed }) => [tw`flex-1 rounded-lg overflow-hidden`, pressed ? tw`opacity-50` : null]}
       >
         <View style={tw`overflow-hidden`}>
-          <Image style={tw`w-full h-[200px]`} source={{ uri: meal.imageUrl }} />
-          <Text style={tw`font-bold text-center text-lg m-1 text-slate-200`}>{meal.title}</Text>
-          <MealsDetailsText affordability={meal.affordability} complexity={meal.complexity} duration={meal.duration} />
+          <Image style={tw`w-full h-[200px]`} source={{ uri: imageUrl }} />
+          <Text style={tw`font-bold text-center text-lg m-1 text-slate-200`}>{title}</Text>
+          <MealsDetailsText affordability={affordability} complexity={complexity} duration={duration} />
         </View>
       </Pressable>
     </View>
