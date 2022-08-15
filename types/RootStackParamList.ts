@@ -1,5 +1,5 @@
 export type RootStackParamList = {
-  MealsCategories: undefined;
+  Drawer: undefined;
   MealsOverView: { categoryId: string };
   MealsDetails: { mealId: string };
 };
