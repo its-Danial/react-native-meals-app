@@ -8,15 +8,40 @@ import { RootStackParamList } from "./types/RootStackParamList";
 import tw from "twrnc";
 import MealsDetailScreen from "./screens/MealsDetailScreen";
 import FavoritesScreen from "./screens/FavoritesScreen";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigator = () => {
   return (
-    <Drawer.Navigator>
-      <Drawer.Screen name="Categories" component={CategoriesScreen} />
-      <Drawer.Screen name="Favorites" component={FavoritesScreen} />
+    <Drawer.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: tw.color("slate-900") },
+        headerTintColor: tw.color("slate-200"),
+        sceneContainerStyle: { backgroundColor: tw.color("slate-900") },
+        drawerContentStyle: { backgroundColor: tw.color("slate-800") },
+        headerShadowVisible: false,
+        drawerActiveBackgroundColor: tw.color("slate-700"),
+        drawerActiveTintColor: tw.color("slate-50"),
+        drawerInactiveTintColor: tw.color("slate-400"),
+      }}
+    >
+      <Drawer.Screen
+        name="Categories"
+        component={CategoriesScreen}
+        options={{
+          title: "All Categories",
+          drawerIcon: ({ color, size }) => <Ionicons name="list" size={size} color={color} />,
+        }}
+      />
+      <Drawer.Screen
+        name="Favorites"
+        component={FavoritesScreen}
+        options={{
+          drawerIcon: ({ color, size }) => <Ionicons name="heart" size={size} color={color} />,
+        }}
+      />
     </Drawer.Navigator>
   );
 };
@@ -38,11 +63,11 @@ export default function App() {
             name="Drawer"
             component={DrawerNavigator}
             options={{
-              title: "All Categories",
+              headerShown: false,
             }}
           />
           <Stack.Screen name="MealsOverView" component={MealsOverViewScreen} />
-          <Stack.Screen name="MealsDetails" component={MealsDetailScreen} />
+          <Stack.Screen name="MealsDetails" component={MealsDetailScreen} options={{ title: "About the Meal" }} />
         </Stack.Navigator>
       </NavigationContainer>
     </>

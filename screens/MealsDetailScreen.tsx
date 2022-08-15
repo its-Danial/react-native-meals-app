@@ -1,13 +1,13 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FC, useLayoutEffect } from "react";
-import { View, Text, Image, ScrollView, Button } from "react-native";
-import { RootStackParamList } from "../types/RootStackParamList";
 import tw from "twrnc";
-import { MEALS } from "../data/dummy-data";
-import MealsDetailsText from "../components/MealsDetailsText";
-import DetailsSubtitle from "../components/DetailsSubtitle";
+import { Image, ScrollView, Text, View } from "react-native";
 import DetailsList from "../components/DetailsList";
+import DetailsSubtitle from "../components/DetailsSubtitle";
 import IconButton from "../components/IconButton";
+import MealsDetailsText from "../components/MealsDetailsText";
+import { MEALS } from "../data/dummy-data";
+import { RootStackParamList } from "../types/RootStackParamList";
 
 type MealsDetailScreenProps = NativeStackScreenProps<RootStackParamList, "MealsDetails">;
 
