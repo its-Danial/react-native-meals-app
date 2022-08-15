@@ -8,6 +8,6 @@ The app allows you to browse through categories of meals and then view various d
 
 ![meal-details](/screenshots/meal-details.png)
 
-![drawer](/screenshots/Desktop/drawer.png)
+![drawer](/screenshots/drawer.png)
 
-![my-favorite](/screenshots/Desktop/my-favorite.png)
+![my-favorite](/screenshots/my-favorite.png)
